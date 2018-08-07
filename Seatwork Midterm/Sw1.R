@@ -1,9 +1,14 @@
 x <- midetrmseatwork_data
-Oz1 <- subset(x, Ozone > 25 & Temp > 70,select=c(Wind))
-if (x$Ozone > 25 && x$Temp > 70 && !is.na(x$Wind)){
-  subset.data.frame(x, )
-  mean()
+
+subset_data <- function(data,min,max){
+  subset_param <- (data$class>min)&(data$class<max)
+  data[subset_param]
 }
 
-print(select)
-ss
+T1 <- 
+  
+  if (x$Ozone > 25 && x$Temp > 70 && !is.na(x$Wind)){
+  subset_data(x,25,70)
+  mean(subset_data)
+}
+
