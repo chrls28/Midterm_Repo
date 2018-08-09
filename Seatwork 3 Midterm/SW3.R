@@ -1,19 +1,21 @@
 x <- midetrmseatwork_data
 names(x)
-T1 <- function(data,row){
-      data[row,3]
+Valclass <- function(data,row,class){
+      data[row,class]
 }
-T1(x,82)
+Valclass(x,82,3)
 
-T2 <- function(data){
-      sum(is.na(data[,3]))
+Valmissinclass <- function(data,class){
+      sum(is.na(data[,class]))
 }
-T2(x)
+Valmissinclass(x,"Wind")
 
-T3 <- function (data,row1,row2){
-  ozone<- data[row1:row2,1]
-  sapply(ozone, mean, na.rm = TRUE)
+valmeanbetweenrow <- function (data,row1,row2,class){
+  getrow<- data[row1:row2,class]
+  sapply(getrow, mean, na.rm = TRUE)
 }
-T3(x,20,70)
+valmeanbetweenrow(x,20,70,"Ozone")
+
+x[82,"Wind"]
 
 
