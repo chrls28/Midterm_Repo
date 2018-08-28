@@ -1,13 +1,14 @@
 library(imager)
 library(magick)
 
-#display image
+#DISPLAY IMAGE IMAGER
 glitch <- load.image("img/glitch.jpg") %>% plot
 
 abstract <- load.image("img/abstract.jpg") %>% plot
 
 spiral <- load.image("img/spiral.jpg") %>% plot
 
+#RESIZE IMAGER
 #library = imager resize image local
 resizeimg <- function(img,height,width){
 imgrsze <- resize(img, size_x = height, size_y = width)
@@ -15,28 +16,9 @@ save.image(im = imgrsze,"img/glitchresize.jpg")
 plot(imgrsze)
 }
 
-#glitch
 resizeimg(glitch,250,250)
 
-
-#saving resize image
-#save.image(im = mtfuji1,"img/mtfuji1.jpg")
-#plot(mtfuji1)
-
-
-#library = magick web resize
-urlimgresize <- function(img,W,H){
-img1 <- image_resize(img, geometry_size_pixels(width = W, height = H, preserve_aspect = FALSE))
-img1
-}
-#display urlimg to ressize
-urlimg <- magick::image_read("http://informationcommunicationtechnology.com/wp-content/uploads/2018/06/Abstract.jpg")
-urlimg
-#funtion to resize urlimg
-urlimgresize(urlimg,300,50)
-
-
-
+#GRAYSCALE IMAGER
 #library = imager grayimg local
 grayimg <- function(img,x){
   is.logical(x)
@@ -52,15 +34,35 @@ if(x==TRUE){
 grayimg(spiral,TRUE)
 grayimg(spiral,FALSE)
 
-#grayimg url
 
-
-
-
-#library = magick invertion of img local
+#INVERTION IMAGER
+#library = imager invertion of img local
 invertimg <- function(im,angle){
   invimg <- imrotate(im,angle)
   invimg1 <- save.image(invimg,"img/abstractinvert.jpg")
   plot(invimg)
 }
 invertimg(abstract,180)
+invertimg(law,180)
+
+
+
+#library = magick web resize
+
+#DISPLAY MAGICK
+law <- magick::image_read("https://res.cloudinary.com/teepublic/image/private/s--VDfx4Cos--/t_Preview/b_rgb:191919,c_limit,f_jpg,h_630,q_90,w_630/v1516559553/production/designs/2296669_0.jpg")
+law
+
+#RESIZE MAGICK
+urlimgresize <- function(img,W,H){
+  img1 <- image_resize(img, geometry_size_pixels(width = W, height = H, preserve_aspect = FALSE))
+  
+  img1
+}
+urlimgresize(law,300,100)
+
+#GRAYSCALE MAGICK
+image_charcoal(law)
+
+
+
