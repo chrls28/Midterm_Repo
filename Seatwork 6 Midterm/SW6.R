@@ -10,6 +10,10 @@ abstract <- load.image("img/abstract.jpg") %>% plot
 
 spiral <- load.image("img/spiral.jpg") %>% plot
 
+
+#DISPLAYING IMAGE
+img <- function()
+
 #RESIZE IMAGER
 #library = imager resize image local
 resizeimg <- function(img,height,width){
@@ -75,4 +79,18 @@ augmented <- function(img,height,width,x,angle){
 }
 
 augmented(abstract,25,25,TRUE,50)
+
+library (argparse)
+library(reticulate)
+
+parser <- ArgumentParser()
+parser$add_argument("--dir" , type="character", help = "Local File Directory of image to augment")
+parser$add_argument("--resize", type="integer", help = "Height x Width")
+parser$add_argument("--grey" , type="logical", default=FALSE , help = "To grayscale an image")
+parser$add_argument("--invert" , type="numeric", help = "To change the angle of the image")
+ 
+
+parser$print_help()
+
+
 
