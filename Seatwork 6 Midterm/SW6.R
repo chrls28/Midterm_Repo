@@ -12,7 +12,11 @@ spiral <- load.image("img/spiral.jpg") %>% plot
 
 
 #DISPLAYING IMAGE
-img <- function()
+dirimage <- function(img){
+  load.image(img) %>% plot
+}
+
+dirimage("img/glitch.jpg")
 
 #RESIZE IMAGER
 #library = imager resize image local

@@ -1,44 +1,36 @@
-library(imager)
+library (argparse)
+parser <- ArgumentParser()
 
-augmented <- function(img,height,width,x,angle){
-    img <- load.image("img/abstract.jpg")
-    names = LETTERS[1:26] ## Gives a sequence of the letters of the alphabet
-    
-    beta1 = rnorm(26, 5, 2) ## A vector of slopes (one for each letter)
-    beta0 = 10 ## A common intercept
-    
-    for(i in 1:26){
-      x = rnorm(500, 105, 10)
-      y = beta0 + beta1[i]*x + 15*rnorm(500)
-      
-    
-  if(x==TRUE)
-  {
-    is.logical(x)
-    if(x==TRUE){
-      gray <- grayscale(img)
-    gray1 <- save.image(gray,file=paste0("img/grey",img,".jpg"))
-      plot(gray)
-    } else{
-      plot(img)
-    }
-  }
-  if(height&&width > 1){
-    imgrsze <- resize(img, size_x = height, size_y = width)
-    save.image(im = imgrsze,"img/resize.jpg")
-    plot(imgrsze)
-  }
-  if(angle>1){
-    invimg <- imrotate(img,angle)
-    invimg1 <- save.image(invimg,"img/invert.jpg")
-    plot(invimg)
-  }
-  else{
-    plot(img)
-  }
+# specify our desired options 
+# by default ArgumentParser will add an help option 
+parser$add_argument("-v", "--verbose", action="store_true", default=TRUE,
+                    help="Print extra output [default]")
+parser$add_argument("-q", "--quietly", action="store_false", 
+                    dest="verbose", help="Print little output")
+parser$add_argument("-c", "--count", type="integer", default=5, 
+                    help="Number of random normals to generate [default %(default)s]",
+                    metavar="number")
+parser$add_argument("--generator", default="rnorm", 
+                    help = "Function to generate random deviates [default \"%(default)s\"]")
+parser$add_argument("--mean", default=0, type="double",
+                    help="Mean if generator == \"rnorm\" [default %(default)s]")
+parser$add_argument("--sd", default=1, type="double",
+                    metavar="standard deviation",
+                    help="Standard deviation if generator == \"rnorm\" [default %(default)s]")
+
+# get command line options, if help option encountered print help and exit,
+# otherwise if options not found on command line then set defaults, 
+args <- parser$parse_args()
+
+# print some progress messages to stderr if "quietly" wasn't requested
+if ( args$verbose ) { 
+  write("writing some verbose output to standard error...\n", stderr()) 
 }
 
-
-
-print(augmented(img,250,300,T,90))
-
+# do some operations based on user input
+if( args$generator == "rnorm") {
+  cat(paste(rnorm(args$count, mean=args$mean, sd=args$sd), collapse="\n"))
+} else {
+  cat(paste(do.call(args$generator, list(args$count)), collapse="\n"))
+}
+cat("\n")
