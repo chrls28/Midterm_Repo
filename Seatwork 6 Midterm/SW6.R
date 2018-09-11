@@ -84,6 +84,7 @@ augmented <- function(img,height,width,x,angle){
 
 augmented(abstract,25,25,TRUE,50)
 
+
 library (argparse)
 library(reticulate)
 
