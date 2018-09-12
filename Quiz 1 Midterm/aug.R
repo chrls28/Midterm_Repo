@@ -14,18 +14,18 @@ parser$add_argument("-W",type="integer", help = "Width")
 parser$add_argument("-grey" ,type="logical",help = "To grayscale an image")
 parser$add_argument("-angle",type="integer", help = "To change the angle of the image")
 
-parser$print_help()     #wala dapat palitan
-args <- parser$parse_args()  #wala dapat palitan
+parser$print_help()     
+args <- parser$parse_args()  
 
-#nakadepende sayo kung gusto mo makita sa cmd ung mga input values
+
 print (args$image)
 print (args$H)
 print (args$W)
 print (args$grey)
 print (args$angle)
 
-#palitan ung parameters img,H,W,gry,angle ng ano man gusto mo 
-# wag kalimutan isubstitute ung parameters sa if statements sa baba
+
+
 augmented <- function(img,H,W,gry,angle){
   if(gry==TRUE){
       imge <- load.image(img)
